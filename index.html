@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="sidebar">
+        <div class="hero-card">
+          <p class="eyebrow">Personal space</p>
+          <h1>Keep your notes in one calm place</h1>
+          <p class="hero-copy">
+            Save reminders, ideas, study points, or quick journal entries and
+            find them again with a simple search.
+          </p>
+        </div>
+
+        <section class="theme-card auth-card">
+          <div class="section-head">
+            <p class="eyebrow">Cloud Notes</p>
+            <h3>Use your own note space</h3>
+          </div>
+
+          <p id="auth-copy" class="hero-copy auth-copy">
+            This app is currently using only browser storage on this device.
+          </p>
+
+          <div id="auth-setup-copy" class="setup-copy">
+            Add your Supabase project URL and anon key to turn on sign-in and private cloud notes for each user.
+          </div>
+
+          <div id="auth-fields" class="auth-fields" hidden>
+            <label class="field">
+              <span>Email address</span>
+              <input id="auth-email-input" type="email" placeholder="you@example.com" autocomplete="email" />
+            </label>
+
+            <div class="theme-actions auth-actions">
+              <button type="button" id="auth-sign-in-btn" class="theme-action-btn">
+                Send Login Link
+              </button>
+              <button type="button" id="auth-sign-out-btn" class="theme-action-btn theme-reset-btn" hidden>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="theme-card">
+          <div class="section-head">
+            <p class="eyebrow">Theme Studio</p>
+            <h3>Change your background</h3>
+          </div>
+
+          <div id="theme-filter-controls" class="theme-filter-controls">
+            <label class="field">
+              <span>Background color</span>
+              <input id="theme-color-input" class="color-input" type="color" value="#140c09" />
+            </label>
+
+            <label class="field">
+              <span>Surface tint color</span>
+              <input id="surface-color-input" class="color-input" type="color" value="#21140f" />
+            </label>
+
+            <label class="field">
+              <span>Background overlay strength</span>
+              <div class="range-row">
+                <input id="theme-overlay-input" type="range" min="0" max="100" value="55" />
+                <strong id="theme-overlay-value">55%</strong>
+              </div>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Note background visibility</span>
+            <div class="range-row">
+              <input id="note-opacity-input" type="range" min="0" max="100" value="42" />
+              <strong id="note-opacity-value">42%</strong>
+            </div>
+          </label>
+
+          <label class="field">
+            <span>Editor background visibility</span>
+            <div class="range-row">
+              <input id="editor-opacity-input" type="range" min="0" max="100" value="72" />
+              <strong id="editor-opacity-value">72%</strong>
+            </div>
+          </label>
+
+          <label class="upload-dropzone compact-dropzone" for="theme-image-input">
+            <input id="theme-image-input" type="file" accept="image/*" hidden />
+            <span class="upload-title">Upload background image</span>
+            <span class="upload-copy">Use your own wallpaper behind the notes.</span>
+          </label>
+
+          <div id="theme-preview" class="theme-preview empty">
+            <p class="preview-placeholder">No custom background image selected.</p>
+          </div>
+
+          <div class="theme-actions">
+            <button type="button" id="remove-theme-image-btn" class="theme-action-btn" hidden>
+              Remove Background Image
+            </button>
+            <button type="button" id="reset-theme-btn" class="theme-action-btn theme-reset-btn">
+              Reset Theme
+            </button>
+          </div>
+        </section>
+
+        <form id="note-form" class="search-panel">
+          <div id="form-mode" class="form-mode" hidden>
+            <span class="pill form-pill">Editing note</span>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-main">
+          <label class="field">
+            <span>Title</span>
+            <input
+              id="title-input"
+              type="text"
+              placeholder="Meeting notes, shopping list, idea..."
+              autocomplete="off"
+            />
+          </label>
+
+          <label class="field">
+            <span>Tag</span>
+            <input
+              id="tag-input"
+              type="text"
+              placeholder="Work, study, personal..."
+              autocomplete="off"
+            />
+          </label>
+
+          <label class="field">
+            <span>Note description</span>
+            <textarea
+              id="note-input"
+              rows="5"
+              placeholder="Write your main note, reminder, or summary..."
+            ></textarea>
+          </label>
+
+          <div class="editor-section">
+            <div class="section-head">
+              <p class="eyebrow">Code Snippet</p>
+              <h3>Save code with context</h3>
+            </div>
+
+            <div id="create-snippets" class="snippet-stack"></div>
+            <button type="button" id="add-snippet-btn" class="secondary-btn add-snippet-btn">
+              Add Another Code Block
+            </button>
+          </div>
+            </div>
+
+            <div class="form-side">
+              <div class="upload-card">
+                <div class="section-head">
+                  <p class="eyebrow">Visual</p>
+                  <h3>Attach an image</h3>
+                </div>
+
+                <label class="upload-dropzone" for="image-input">
+                  <input id="image-input" type="file" accept="image/*" hidden />
+                  <span class="upload-title">Choose image</span>
+                  <span class="upload-copy">JPG, PNG, GIF, or WebP. Stored in your browser with the note.</span>
+                </label>
+
+                <div id="image-preview" class="image-preview empty">
+                  <p class="preview-placeholder">No image selected yet.</p>
+                </div>
+
+                <button type="button" id="remove-image-btn" class="text-btn remove-image-btn" hidden>
+                  Remove Image
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="submit-btn" class="primary-btn">Save Note</button>
+            <button type="button" id="cancel-btn" class="text-btn secondary-btn" hidden>
+              Cancel Edit
+            </button>
+            <button type="button" id="clear-btn" class="ghost-btn">
+              Clear All
+            </button>
+          </div>
+        </form>
+
+        <div class="status-strip">
+          <div>
+            <p class="status-label">Total notes</p>
+            <p id="total-count" class="status-value">0 notes</p>
+          </div>
+          <div>
+            <p class="status-label">Latest update</p>
+            <p id="latest-update" class="status-value">No notes yet</p>
+          </div>
+        </div>
+
+        <p id="status-message" class="status-message">
+          Add your first note to get started.
+        </p>
+      </aside>
+
+      <main class="notes-panel">
+        <section class="notes-shell">
+          <div class="results-header">
+            <div class="notes-heading-editor">
+              <label for="notes-heading-input">Notes title</label>
+              <input
+                id="notes-heading-input"
+                class="notes-heading-input"
+                type="text"
+                value="Notes"
+                placeholder="Enter a title"
+                aria-label="Notes title"
+              />
+              <span>Click the title and type to rename it</span>
+            </div>
+          </div>
+
+          <label class="field search-field">
+            <span>Search notes</span>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search by title, tag, or text"
+              autocomplete="off"
+            />
+          </label>
+
+          <div id="notes" class="results-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      window.NOTES_APP_CONFIG = window.NOTES_APP_CONFIG || {
+        supabase: {
+          url: "",
+          anonKey: ""
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
