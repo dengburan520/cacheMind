@@ -75,3 +75,5 @@ This project now includes a starter path for multi-user notes:
 - notes are cloud-ready
 - theme settings and heading still stay in browser storage
 - note images are currently stored directly in the notes record as text data, which is okay for a starter but not ideal for larger production use
+
+
